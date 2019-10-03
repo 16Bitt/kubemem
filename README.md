@@ -42,7 +42,7 @@ COPY --from=kubemem /bin/kubemem /bin/kubemem
 And then add a probe to your deployment:
 
 ```yaml
-	livenessProbe:
+    livenessProbe:
       exec:
         command:
         - kubemem
