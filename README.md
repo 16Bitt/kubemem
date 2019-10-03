@@ -47,9 +47,9 @@ And then add a probe to your deployment:
         command:
         - kubemem
         - --failure
-		- 95 # Fail at 95% memory
-		- --warning
-		- 85 # Warn at 85% or greater memory usage
+        - 95 # Fail at 95% memory
+        - --warning
+        - 85 # Warn at 85% or greater memory usage
       initialDelaySeconds: 5
       periodSeconds: 5
 ```
