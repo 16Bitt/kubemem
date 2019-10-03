@@ -1,0 +1,11 @@
+FROM debian:stable-slim AS builder
+
+RUN apt-get update && apt-get install -y build-essential
+WORKDIR /kubemem
+COPY *.c *.h Makefile ./
+RUN make
+
+FROM debian:stable-slim
+COPY --from=builder /kubemem/kubemem /bin/kubemem
+
+CMD ["/bin/kubemem"]

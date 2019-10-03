@@ -11,6 +11,7 @@ int main(int argc, char **argv) {
 
   double ratio = free_ram_ratio();
   if(ratio >= args.failure_ratio) {
+    fprintf(stderr, "FAILURE: hit memory limit %F (at %F)\n", args.failure_ratio * 100.0, ratio * 100.0);
     return ERR_MEMORY_LOW;
   }
 

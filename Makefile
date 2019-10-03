@@ -1,6 +1,6 @@
 SOURCES = $(patsubst %.c,%.o,$(wildcard *.c))
 TARGET  = kubemem
-CFLAGS  = -Werror -Wall -I./
+CFLAGS  = -Werror -Wall -I./ -g -Os
 
 $(TARGET): $(SOURCES)
 
