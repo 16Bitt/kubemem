@@ -19,7 +19,7 @@ Kubemem has two options:
 * a failure percentage: When your RAM usage hits this threshold, kubemem will exit with
   a non-zero exit code, causing kubernetes to trigger a graceful kill of your pod.
 
-Kubemem will use the meminfo kernel interface to get memory info, and then use your options
+Kubemem will use the sysinfo kernel interface to get memory info, and then use your options
 to either log or fail.
 
 ## Usage
@@ -47,9 +47,9 @@ And then add a probe to your deployment:
         command:
         - kubemem
         - --failure
-        - 95 # Fail at 95% memory
+        - "95" # Fail at 95% memory
         - --warning
-        - 85 # Warn at 85% or greater memory usage
+        - "85" # Warn at 85% or greater memory usage
       initialDelaySeconds: 5
       periodSeconds: 5
 ```
@@ -59,3 +59,9 @@ If you'd like to play around with it, you can run it from the command line:
 ```sh
 docker run sixteenbitt/kubemem:musl kubemem --warning 80 --failure 90
 ```
+
+## A note about logging
+
+Kubernetes currently aggregates probe logs in kubelet, and only if logging is set to
+verbosity level 4 or higher. See [this issue](https://github.com/16Bitt/kubemem/issues/1)
+for more info about how kubernetes handles probe logs if you'd like to capture them.
