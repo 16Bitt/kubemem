@@ -13,13 +13,14 @@ gracefully but are instead immediately trashed once they hit the memory threshol
 
 ## How it works
 
-Kubemem has two options:
+Kubemem has three options:
 
 * a warning percentage: When your RAM usage hits this threshold, kubemem will log the warning
 * a failure percentage: When your RAM usage hits this threshold, kubemem will exit with
   a non-zero exit code, causing kubernetes to trigger a graceful kill of your pod.
+* a logfile path
 
-Kubemem will use the sysinfo kernel interface to get memory info, and then use your options
+Kubemem will use the cgroup filesystem to get memory info, and then use your options
 to either log or fail.
 
 ## Usage
@@ -50,6 +51,8 @@ And then add a probe to your deployment:
         - "95" # Fail at 95% memory
         - --warning
         - "85" # Warn at 85% or greater memory usage
+		- --logfile
+		- /proc/1/fd/1 # Write to PID 1's output, allowing logging
       initialDelaySeconds: 5
       periodSeconds: 5
 ```
@@ -65,3 +68,6 @@ docker run sixteenbitt/kubemem:musl kubemem --warning 80 --failure 90
 Kubernetes currently aggregates probe logs in kubelet, and only if logging is set to
 verbosity level 4 or higher. See [this issue](https://github.com/16Bitt/kubemem/issues/1)
 for more info about how kubernetes handles probe logs if you'd like to capture them.
+
+As a workaround, set your logfile parameter to `/proc/1/fd/1` to write to the containers
+PID 1 stdout for logging.

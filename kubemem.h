@@ -2,10 +2,10 @@
 #define KUBEMEM_H
 
 #define ERR_MALLOC_FAILED 1
-#define ERR_SYSINFO_FAILED 2
-#define ERR_ARGUMENTS_FAILED 2
-#define ERR_MEMORY_LOW 3
-#define ERR_LOGFILE_FAILED 4
+#define ERR_CGROUP_READ_FAILED 2
+#define ERR_ARGUMENTS_FAILED 3
+#define ERR_MEMORY_LOW 4
+#define ERR_LOGFILE_FAILED 5
 
 #define DEFAULT_WARNING_RATIO 0.75
 #define DEFAULT_FAILURE_RATIO 0.90
@@ -14,6 +14,9 @@
 #define WARNING_FLAG "--warning"
 #define FAILURE_FLAG "--failure"
 #define LOGFILE_FLAG "--logfile"
+
+#define CGROUP_BYTES_USED "/sys/fs/cgroup/memory/memory.usage_in_bytes"
+#define CGROUP_BYTES_LIMIT "/sys/fs/cgroup/memory/memory.limit_in_bytes"
 
 struct kubemem_arguments {
   double warning_ratio;
