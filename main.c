@@ -9,15 +9,22 @@ int main(int argc, char **argv) {
     exit(arg_result);
   }
 
+  FILE *logfile = fopen(args.logfile_path, "a");
+  if(logfile == NULL) {
+    fprintf(stderr, "Failed to open %s\n", args.logfile_path);
+    return ERR_LOGFILE_FAILED;
+  }
+
   double ratio = free_ram_ratio();
   if(ratio >= args.failure_ratio) {
-    fprintf(stderr, "FAILURE: hit memory limit %F (at %F)\n", args.failure_ratio * 100.0, ratio * 100.0);
+    fprintf(logfile, "FAILURE: hit memory limit %F (at %F)\n", args.failure_ratio * 100.0, ratio * 100.0);
     return ERR_MEMORY_LOW;
   }
 
   if(ratio >= args.warning_ratio) {
-    fprintf(stderr, "WARN: approaching memory limit %F (at %F)\n", args.failure_ratio * 100.0, ratio * 100.0);
+    fprintf(logfile, "WARN: approaching memory limit %F (at %F)\n", args.failure_ratio * 100.0, ratio * 100.0);
   }
 
+  fclose(logfile);
   return 0;
 }
