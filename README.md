@@ -51,8 +51,8 @@ And then add a probe to your deployment:
         - "95" # Fail at 95% memory
         - --warning
         - "85" # Warn at 85% or greater memory usage
-		- --logfile
-		- /proc/1/fd/1 # Write to PID 1's output, allowing logging
+        - --logfile
+        - /proc/1/fd/1 # Write to PID 1's output, allowing logging
       initialDelaySeconds: 5
       periodSeconds: 5
 ```
