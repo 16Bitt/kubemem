@@ -15,8 +15,8 @@
 #define FAILURE_FLAG "--failure"
 #define LOGFILE_FLAG "--logfile"
 
-#define CGROUP_BYTES_USED "/sys/fs/cgroup/memory/memory.usage_in_bytes"
-#define CGROUP_BYTES_LIMIT "/sys/fs/cgroup/memory/memory.limit_in_bytes"
+#define CGROUP_BYTES_USED "/sys/fs/cgroup/memory.current"
+#define CGROUP_BYTES_LIMIT "/sys/fs/cgroup/memory.max"
 
 struct kubemem_arguments {
   double warning_ratio;
